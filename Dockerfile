@@ -19,6 +19,8 @@ RUN pip install arize-phoenix[pg]==11.21.1 openai requests rich
 COPY entrypoint.sh /app/entrypoint.sh
 COPY configure_api.sh /app/configure_api.sh
 COPY simple_test.py /app/simple_test.py
+COPY phoenix_response_fix.py /app/phoenix_response_fix.py
+COPY debug_api.py /app/debug_api.py
 RUN chmod +x /app/entrypoint.sh /app/configure_api.sh /app/simple_test.py
 
 # Expose the Heroku-assigned port

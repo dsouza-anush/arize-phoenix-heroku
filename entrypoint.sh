@@ -53,10 +53,22 @@ export PHOENIX_OTLP_GRPC_ENABLED=false
 
 # Source the configuration script for Heroku AI addon
 source /app/configure_api.sh
-export PHOENIX_DEFAULT_ROUTE_COMPONENT=true
+
+# Run response fix script
+echo "Checking for response fix script..."
+if [ -f "/app/phoenix_response_fix.py" ]; then
+  echo "Running Phoenix response fix script"
+  python /app/phoenix_response_fix.py &
+fi
+
+# Run simple API test
+echo "Testing API connection..."
+python /app/simple_test.py > /tmp/api_test_results.log 2>&1
+echo "API test completed. Results in /tmp/api_test_results.log"
 
 echo "Starting Arize Phoenix on port $PHOENIX_PORT"
 
 # Execute the command passed to the entrypoint
 export PHOENIX_HOST=0.0.0.0
+export PHOENIX_DEFAULT_ROUTE_COMPONENT=true
 exec python -m phoenix.server.main serve
