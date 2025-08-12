@@ -12,8 +12,8 @@ ENV PHOENIX_OTLP_GRPC_ENABLED=false
 # Set up environment for Heroku
 ENV PHOENIX_HOST=0.0.0.0
 
-# Install Arize Phoenix and OpenAI package
-RUN pip install arize-phoenix[pg] openai
+# Install Arize Phoenix
+RUN pip install arize-phoenix[pg]
 
 # Copy our custom entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
