@@ -40,6 +40,10 @@
     {
       "plan": "papertrail:choklad",
       "as": "LOGS"
+    },
+    {
+      "plan": "heroku-inference:claude-4-sonnet",
+      "as": "HEROKU_AI"
     }
   ],
   "buildpacks": [
