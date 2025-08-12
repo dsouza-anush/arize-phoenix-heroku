@@ -51,12 +51,9 @@ fi
 # Disable gRPC to work with Heroku's single port model
 export PHOENIX_OTLP_GRPC_ENABLED=false
 
-# Configure OpenAI base URL if provided by Heroku AI addon
-if [ -n "$INFERENCE_API_URL" ]; then
-  echo "Configuring OpenAI base URL for Heroku AI addon"
-  export OPENAI_BASE_URL="$INFERENCE_API_URL"
-  echo "OpenAI base URL set to: $OPENAI_BASE_URL"
-fi
+# Source the configuration script for Heroku AI addon
+source /app/configure_api.sh
+export PHOENIX_DEFAULT_ROUTE_COMPONENT=true
 
 echo "Starting Arize Phoenix on port $PHOENIX_PORT"
 

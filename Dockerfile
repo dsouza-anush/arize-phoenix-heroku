@@ -13,11 +13,13 @@ ENV PHOENIX_OTLP_GRPC_ENABLED=false
 ENV PHOENIX_HOST=0.0.0.0
 
 # Install Arize Phoenix and OpenAI client
-RUN pip install arize-phoenix[pg] openai
+RUN pip install arize-phoenix[pg]==11.21.1 openai requests rich
 
-# Copy our custom entrypoint script
+# Copy our custom scripts
 COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+COPY configure_api.sh /app/configure_api.sh
+COPY simple_test.py /app/simple_test.py
+RUN chmod +x /app/entrypoint.sh /app/configure_api.sh /app/simple_test.py
 
 # Expose the Heroku-assigned port
 # Note: Heroku will set PORT environment variable at runtime
